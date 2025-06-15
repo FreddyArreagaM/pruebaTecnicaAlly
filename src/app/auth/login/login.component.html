@@ -1,0 +1,39 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow card-primary">
+        <div class="card-header d-flex align-items-center" style="height: 80px;">
+            <h4 class="card-title m-0">Login</h4>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" class="form-control" formControlName="email"
+                        [class.is-invalid]="submitted && loginForm.get('email')?.invalid" autocomplete="new-email" />
+                    <div *ngIf="submitted && loginForm.get('email')?.errors?.['required']" class="invalid-feedback">
+                        El email es obligatorio.
+                    </div>
+                    <div *ngIf="submitted && loginForm.get('email')?.errors?.['email']" class="invalid-feedback">
+                        El email no tiene un formato v&aacute;lido.
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" class="form-control" formControlName="password"
+                        [class.is-invalid]="submitted && loginForm.get('password')?.invalid"
+                        autocomplete="new-password" />
+                    <div *ngIf="submitted && loginForm.get('password')?.errors?.['required']" class="invalid-feedback">
+                        La contraseña es obligatoria.
+                    </div>
+                </div>
+                <div class="d-grid mb-3">
+                    <button type="submit" class="btn btn-primary">
+                        Login
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer text-center">
+            <small><a routerLink="/auth/register" class="a-router">Necesitas una cuenta? Reg&iacute;strate</a></small>
+        </div>
+    </div>
+</div>
