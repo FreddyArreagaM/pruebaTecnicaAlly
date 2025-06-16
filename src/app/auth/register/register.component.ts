@@ -1,8 +1,15 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from 'src/app/service/auth.service';
+import { AuthService } from 'src/app/service/auth/auth.service';
+
+
+function fullNameValidator(control: AbstractControl): ValidationErrors | null {
+  const value = control.value || '';
+  const words = value.trim().split(/\s+/);
+  return words.length >= 3 ? null : { fullName: true };
+}
 
 @Component({
   selector: 'app-register',
@@ -10,7 +17,6 @@ import { AuthService } from 'src/app/service/auth.service';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
-  submitted = false;
   registerForm: FormGroup;
 
   constructor(
@@ -21,7 +27,7 @@ export class RegisterComponent {
   ) {
     this.registerForm = this.fb.group(
       {
-        name: ['', [Validators.required, Validators.minLength(3)]],
+        name: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(50), fullNameValidator]],
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', [Validators.required]],
@@ -39,8 +45,6 @@ export class RegisterComponent {
   }
 
   onRegister() {
-    this.submitted = true;
-
     if (this.registerForm.invalid) return;
 
     const { name, email, password } = this.registerForm.value;

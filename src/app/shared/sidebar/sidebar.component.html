@@ -1,0 +1,44 @@
+<div class="page-wrapper chiller-theme toggled" [ngClass]="{ toggled: sidebarToggled }">
+    <a id="show-sidebar" class="btn btn-sm btn-dark sidebar-toggle-btn" *ngIf="!sidebarToggled"
+        (click)="toggleSidebar()">
+        <i class="fa-solid fa-bars"></i>
+    </a>
+    <nav id="sidebar" class="sidebar-wrapper" [ngClass]="{ 'sidebar-open': sidebarToggled }">
+        <div class="sidebar-content">
+            <div class="sidebar-brand">
+                <a class="mt-3">Men&uacute;</a>
+                <a class="btn btn-sm btn-light close-sidebar-btn d-block d-md-none mt-2 ms-auto me-2"
+                    *ngIf="sidebarToggled" (click)="toggleSidebar()">
+                    <i class="fa-solid fa-times"></i>
+                </a>
+            </div>
+
+            <div class="sidebar-menu" >
+                <ul>
+                    <li class="sidebar-dropdown" [ngClass]="{ active: isDashboardDropdownOpen }">
+                        <a href="#" (click)="toggleDashboardDropdown($event)">
+                            <span>Dashboards</span>
+                        </a>
+                        <div class="sidebar-submenu"
+                            [ngStyle]="{ display: isDashboardDropdownOpen ? 'block' : 'none' }">
+                            <ul>
+                                <li>
+                                    <a [routerLink]="['/dashboard/weather']" routerLinkActive="active">
+                                        <strong>Weather</strong></a>
+                                </li>
+                                <li>
+                                    <a [routerLink]="['/dashboard/user']" routerLinkActive="active">
+                                        <strong>Usuarios</strong></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+    <main class="page-content">
+        <router-outlet></router-outlet>
+    </main>
+</div>

@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from 'src/app/service/auth.service';
+import { AuthService } from 'src/app/service/auth/auth.service';
+
 
 @Component({
   selector: 'app-login',
@@ -37,7 +38,7 @@ export class LoginComponent {
     // Call the login method from AuthService
     this._authService.login(credentials.email, credentials.password).subscribe({
       next: () => {
-        // this.router.navigate(['/dashboard']);
+        this.router.navigate(['/dashboard']);
         this._toastrService.success('Bienvenido, Ingreso exitoso', 'Sistema', {
           progressBar: true,
           timeOut: 2000,
