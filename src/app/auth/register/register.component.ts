@@ -1,9 +1,15 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  AbstractControl,
+  ValidationErrors,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/service/auth/auth.service';
-
 
 function fullNameValidator(control: AbstractControl): ValidationErrors | null {
   const value = control.value || '';
@@ -27,7 +33,15 @@ export class RegisterComponent {
   ) {
     this.registerForm = this.fb.group(
       {
-        name: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(50), fullNameValidator]],
+        name: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(50),
+            fullNameValidator,
+          ],
+        ],
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', [Validators.required]],
@@ -52,22 +66,36 @@ export class RegisterComponent {
     this.authService.register(name, email, password).subscribe({
       next: () => {
         this.router.navigate(['/login']);
-        this._toastrService.success('Bienvenido, Ingreso exitoso', 'Sistema', {
-          progressBar: true,
-          timeOut: 2000,
-          progressAnimation: 'decreasing',
-        });
-      },
-      error: () =>
-        this._toastrService.error(
-          'Error al registrar. Intenta con otro correo.',
+        this._toastrService.success(
+          'Usuario Registrado correctamente',
           'Sistema',
           {
             progressBar: true,
             timeOut: 2000,
             progressAnimation: 'decreasing',
           }
-        ),
+        );
+      },
+      error: (error: HttpErrorResponse) => {
+        console.log('Error en el Registro:', error);
+        if (error.error && error.error.message) {
+          this._toastrService.error(error.error.message, 'Error de Sistema!', {
+            progressBar: true,
+            timeOut: 2000,
+            progressAnimation: 'decreasing',
+          });
+        } else {
+          this._toastrService.error(
+            'Ocurrió un error inesperado.',
+            'Error de Sistema!',
+            {
+              progressBar: true,
+              timeOut: 2000,
+              progressAnimation: 'decreasing',
+            }
+          );
+        }
+      },
     });
   }
 }

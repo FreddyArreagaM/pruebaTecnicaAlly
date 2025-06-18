@@ -41,24 +41,12 @@
 
 .dashboard-card {
   background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
-  padding: 24px 28px;
-  min-width: 260px;
-  min-height: 120px;
-  flex: 1;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  font-family: sans-serif;
 }
 
-.dashboard-card.highlight {
-  border-top: 4px solid #3a7bd5;
-}
-
-.dashboard-card h5 {
-  font-size: 1rem;
-  margin-bottom: 12px;
-  color: #3a7bd5;
-  font-weight: 700;
-}
 
 .dashboard-card ul {
   padding-left: 18px;
@@ -83,4 +71,46 @@
     width: 100%;
     padding: 16px 12px;
   }
+}
+
+.no-bullets {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+
+.task-list li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+.task-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 10px;
+  height: 10px;
+  background-color: #f4a300; /* amarillo similar al mockup */
+  border-radius: 50%;
+}
+
+h5 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #3a7bd5;
 }

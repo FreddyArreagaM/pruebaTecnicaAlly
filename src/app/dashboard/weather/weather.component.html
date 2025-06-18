@@ -18,19 +18,26 @@
             </div>
           </div>
         </div>
-        <div class="dashboard-card highlight">
-          <h5>PAISES DISPONIBLES</h5>
-          <ul>
-            <li>🇲🇽 Mexico</li>
-            <li>🇩🇪 Alemania</li>
-            <li>🇫🇷 Francia</li>
-          </ul>
+        <div class="card highlight">
+          <div class="card-header">
+            <h5>PAISES DISPONIBLES</h5>
+          </div>
+          <div class="card-body">
+            <ul class="no-bullets">
+              <li *ngFor="let country of countryList" (click)="selectCountry(country.addressIp)" class="cursor-pointer">
+                <span [ngClass]="'fi fi-' + country.flag_code +' mx-4' " ></span>
+                {{ country.name }}
+              </li>
+            </ul>
+          </div>
+
+
         </div>
       </div>
       <div class="dashboard-row">
         <div class="dashboard-card">
           <h5>Otras tareas</h5>
-          <ul>
+          <ul class="task-list">
             <li>Realizar documentación en swagger</li>
             <li>Tomar curso React</li>
             <li>Estudiar SpringBoot</li>

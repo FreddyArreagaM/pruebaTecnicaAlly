@@ -7,8 +7,15 @@ import { environment } from 'src/app/environments/environments';
 })
 export class WeatherService {
 
-  private apiKeyWeather = environment.apiUrlWeather;
+  private apiUrlWeather = environment.apiUrlWeather;
+  private apiKeyWeather = environment.apiKeyWeather;
+
 
   constructor(private http: HttpClient) { }
+
+  getInfoByIPCountry(ipCountry: string) {
+    const url = `${this.apiUrlWeather}/current.json?key=${this.apiKeyWeather}&q=${ipCountry}`;
+    return this.http.get<any>(url);
+  }
 
 }
