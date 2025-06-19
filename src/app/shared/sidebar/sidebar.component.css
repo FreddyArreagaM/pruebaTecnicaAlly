@@ -186,12 +186,9 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.10);
 }
 
-@media (max-width: 1000px) {
-  .sidebar-toggle-btn {
-    display: block;
-  }
+.sidebar-toggle-btn {
+  display: block;
 }
-
 
 .page-wrapper .page-content>div {
     padding: 20px 40px;

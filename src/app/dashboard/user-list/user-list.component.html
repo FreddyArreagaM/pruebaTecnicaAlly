@@ -1,1 +1,64 @@
-<p>user-list works!</p>
+<div class="weather-header-bg">
+  <div class="weather-header"></div>
+  <div class="container pt-4" style="position: relative; z-index: 2;">
+    <div class="card">
+      <div class="card-header d-flex align-items-center">
+        <h5 class="m-0">Usuarios</h5>
+      </div>
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div class="btn-group btn-group-sm">
+            <button class="btn btn-primary" (click)="exportAsPDF()">
+              <i class="bi bi-file-earmark-pdf-fill"></i> PDF
+            </button>
+            <button class="btn btn-primary" (click)="copyToClipboard()">
+              <i class="bi bi-clipboard2-fill"></i> Copy
+            </button>
+            <button class="btn btn-primary" (click)="exportAsExcel()">
+              <i class="bi bi-file-earmark-excel-fill"></i> Excel
+            </button>
+            <button class="btn btn-primary" (click)="print()">
+              <i class="bi bi-printer-fill"></i> Imprimir
+            </button>
+          </div>
+
+          <div class="text-end">
+            <input type="text" class="form-control form-control-sm" placeholder="Filtrar:" style="max-width: 200px"
+              (keyup)="applyFilter($event)" />
+          </div>
+        </div>
+
+        <div class="mt-5">
+          <h6 *ngIf="this.dataSource == null"> No hay datos de Usuarios </h6>
+          <div class="table-responsive">
+            <table mat-table [dataSource]="dataUser" class="mat-elevation-z8" matSort>
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="registeredAt">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Registro </th>
+                <td mat-cell *matCellDef="let element"> {{element.fechaCreacion | customDate}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="lastLogin">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Ultimo Login </th>
+                <td mat-cell *matCellDef="let element"> {{element.fechaUltimoLogin | customDate}} </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[7]" showFirstLastButtons class="custom-paginator"></mat-paginator>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

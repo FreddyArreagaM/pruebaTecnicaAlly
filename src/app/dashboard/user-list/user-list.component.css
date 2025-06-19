@@ -1,0 +1,14 @@
+::ng-deep .mat-paginator-container {
+  justify-content: end;
+}
+
+.btn-group-sm .btn i {
+  margin-right: 5px;
+}
+
+h5 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #3a7bd5;
+  font-weight: bold;
+}
